@@ -1,45 +1,59 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
+// App.js
+import * as React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { Linking } from 'react-native';
+import ProductList from './src/screens/ProductList';
+import ProductDetails from './src/screens/ProductDetails';
+import Products from './src/screens/Products';
+import BottomTabs from './src/navigation/BottomTabs';
 
-import { NewAppScreen } from '@react-native/new-app-screen';
-import { StatusBar, StyleSheet, useColorScheme, View } from 'react-native';
-import {
-  SafeAreaProvider,
-  useSafeAreaInsets,
-} from 'react-native-safe-area-context';
+const Stack = createNativeStackNavigator();
 
-function App() {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  return (
-    <SafeAreaProvider>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <AppContent />
-    </SafeAreaProvider>
-  );
-}
-
-function AppContent() {
-  const safeAreaInsets = useSafeAreaInsets();
-
-  return (
-    <View style={styles.container}>
-      <NewAppScreen
-        templateFileName="App.tsx"
-        safeAreaInsets={safeAreaInsets}
-      />
-    </View>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
+/* const linking = {
+  prefixes: [
+    'https://io.pixelsoftwares.com',
+    'io.pixelsoftwares://', // optional custom scheme
+  ],
+  config: {
+    screens: {
+      ProductList: {
+        path: '',
+      },
+      ProductDetails: {
+        // expect link like: https://io.pixelsoftwares.com/product/123
+        path: 'product/:productId',
+        parse: {
+          productId: (id: any) => `${id}`,
+        },
+      },
+    },
   },
-});
+}; */
 
-export default App;
+const linking = {
+  prefixes: ['https://io.pixelsoftwares.com', 'io.pixelsoftwares://'],
+  config: {
+    screens: {
+      BottomTab: {
+        screens: {
+          ProductGrid: '',
+          ProductList: 'products',
+        },
+      },
+      ProductDetails: 'product/:id',
+    },
+  },
+};
+
+
+export default function App() {
+  return (
+    <NavigationContainer linking={linking} fallback={<></>}>
+      <Stack.Navigator initialRouteName="BottomTab">
+        <Stack.Screen name="BottomTab" component={BottomTabs} options={{ headerShown: false }} />
+        <Stack.Screen name="ProductDetails" component={ProductDetails} options={{ title: 'Product Details' }} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
