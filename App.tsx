@@ -7,6 +7,7 @@ import ProductList from './src/screens/ProductList';
 import ProductDetails from './src/screens/ProductDetails';
 import Products from './src/screens/Products';
 import BottomTabs from './src/navigation/BottomTabs';
+import ProductsCard from './src/screens/ProductCard';
 
 const Stack = createNativeStackNavigator();
 
@@ -50,8 +51,8 @@ const linking = {
 export default function App() {
   return (
     <NavigationContainer linking={linking} fallback={<></>}>
-      <Stack.Navigator initialRouteName="BottomTab">
-        <Stack.Screen name="BottomTab" component={BottomTabs} options={{ headerShown: false }} />
+      <Stack.Navigator initialRouteName="Products">
+        <Stack.Screen name="Products" component={ProductsCard} options={{ headerShown: false }} />
         <Stack.Screen name="ProductDetails" component={ProductDetails} options={{ title: 'Product Details' }} />
       </Stack.Navigator>
     </NavigationContainer>

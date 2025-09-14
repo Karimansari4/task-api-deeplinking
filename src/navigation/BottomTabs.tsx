@@ -3,6 +3,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Feather from "react-native-vector-icons/Feather";
 import ProductList from "../screens/ProductList";
 import Products from "../screens/Products";
+import App from "../screens/ProductCard";
 
 export type RootTabParamList = {
     Home: undefined;
@@ -39,7 +40,8 @@ export default function BottomTabs() {
                 },
             })}
         >
-            <Tab.Screen name="ProductGrid" options={{ title: "Grid View" }} component={ProductList} />
+            {/* <Tab.Screen name="ProductGrid" options={{ title: "Grid View" }} component={ProductList} /> */}
+            <Tab.Screen name="ProductGrid" options={{ title: "Grid View" }} component={App} />
             <Tab.Screen name="ProductList" options={{ title: "Product List" }} component={Products} />
         </Tab.Navigator>
     );

@@ -1,14 +1,4 @@
-import {
-    ActivityIndicator,
-    FlatList,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View,
-    RefreshControl,
-    TextInput,
-    SectionList
-} from 'react-native';
+import { ActivityIndicator, FlatList, StyleSheet, Text, TouchableOpacity, View, RefreshControl, TextInput, SectionList } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
@@ -122,13 +112,11 @@ const ProductList = () => {
 
     return (
         <View style={{ flex: 1 }}>
-            <View style={{ width: '100%', paddingHorizontal: '2%' }}>
-                <TextInput
-                    style={styles.searchBox}
-                    placeholder="Search product..."
-                    value={search}
-                    onChangeText={handleSearch}
-                />
+            <View style={{ width: '100%', paddingHorizontal: '2%', marginTop: 20 }}>
+                <TextInput style={styles.searchBox} placeholderTextColor={'#504d4dff'} placeholder="Search product..." value={search} onChangeText={handleSearch} />
+            </View>
+            <View style={styles.listView}>
+                <Text style={styles.title}>Product List</Text>
             </View>
             <FlatList
                 data={filtered}
@@ -212,10 +200,11 @@ const styles = StyleSheet.create({
     },
     searchBox: {
         borderWidth: 1,
-        borderColor: '#ccc',
+        borderColor: '#646060ff',
         borderRadius: 8,
         padding: 10,
         marginBottom: 10,
+        color: "black"
     },
     sectionHeader: {
         fontSize: 18,
@@ -234,4 +223,9 @@ const styles = StyleSheet.create({
     },
     title: { fontSize: 16, fontWeight: '600' },
     price: { color: 'green', fontWeight: 'bold' },
+    listView: {
+        borderWidth: 1,
+        width: "100%",
+        paddingHorizontal: "2%"
+    }
 });

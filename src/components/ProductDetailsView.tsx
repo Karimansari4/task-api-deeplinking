@@ -1,13 +1,17 @@
 import { StyleSheet, Text, View, Image, ScrollView, ActivityIndicator } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import Reviews from './Reviews';
+import ImageCarousel from './ImageCarousel';
 
 
 const ProductDetailsView = ({ item }: any) => {
     return (
         <ScrollView style={styles.container}>
             {/* Product Image */}
-            <Image source={{ uri: item?.thumbnail }} style={styles.thumbnail} />
+            {/* <Image source={{ uri: item?.thumbnail }} style={styles.thumbnail} /> */}
+            <ImageCarousel
+                images={item?.images}
+            />
 
             {/* Title & Price */}
             <View style={styles.header}>
