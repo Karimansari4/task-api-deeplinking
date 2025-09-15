@@ -9,7 +9,7 @@ const API_HEADERS = { apikey: 'pixel' };
 
 const ProductDetails = ({ route }: any) => {
     const { id } = route.params;
-    console.log("route.params: ", id);
+    // console.log("route.params: ", id);
     // console.log("route.params: ", typeof id);
 
     // const navigation = useNavigation<any>();

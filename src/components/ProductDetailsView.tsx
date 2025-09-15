@@ -20,11 +20,12 @@ const ProductDetailsView = ({ item }: any) => {
             </View>
             <Text style={styles.price}>Discount: %{item?.discountPercentage}</Text>
 
+
             {/* Rating Bar */}
-            <View style={styles.ratingContainer}>
-                {Array.from({ length: 5 }).map((_, index) => (
-                    <Text key={index} style={index < Math.round(item?.rating) ? styles.starActive : styles.starInactive}>★</Text>
-                ))}
+            <View style={{ width: '40%' }}>
+                <View style={styles.progressBar}>
+                    <View style={[styles.progressFill, { width: `${(item?.rating / 5) * 100}%` }]} />
+                </View>
                 <Text style={{ marginLeft: 8, color: '#555' }}>{item?.rating?.toFixed(1)}</Text>
             </View>
 
@@ -54,6 +55,7 @@ const ProductDetailsView = ({ item }: any) => {
             <Text style={styles.sectionTitle}>Description</Text>
             <Text style={styles.description}>{item?.description}</Text>
 
+
             {item?.reviews?.length > 0 && (
                 <Reviews reviews={item?.reviews} />
             )}
@@ -77,5 +79,16 @@ const styles = StyleSheet.create({
     description: { fontSize: 14, lineHeight: 20, color: "#444" },
     images: {
         width: '25%'
-    }
+    },
+    progressBar: {
+        height: 6,
+        backgroundColor: "#ccc",
+        borderRadius: 3,
+        marginTop: 6,
+    },
+    progressFill: {
+        height: 6,
+        backgroundColor: "gold",
+        borderRadius: 3,
+    },
 });

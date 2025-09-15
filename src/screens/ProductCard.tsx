@@ -17,6 +17,7 @@ import Feather from "react-native-vector-icons/Feather";
 import moment from "moment";
 import FastImage from "react-native-fast-image";
 import { useNavigation } from "@react-navigation/native";
+import ProductsView from "../components/ProductsView";
 
 const API_URL = "https://www.io.pixelsoftwares.com/task_api.php";
 const API_HEADERS = { apikey: "pixel" };
@@ -33,33 +34,6 @@ type Product = {
     meta: any
 };
 
-const ProductCard = ({ item, isGrid, onPress }: { item: Product; isGrid: boolean, onPress: any }) => {
-    return (
-        <TouchableOpacity style={[styles.card, isGrid ? styles.cardGrid : styles.cardList]} onPress={onPress}>
-            <FastImage
-                style={isGrid ? styles.imageGrid : styles.imageList}
-                source={{ uri: item.thumbnail, priority: FastImage.priority.normal }}
-                resizeMode={FastImage.resizeMode.cover}
-            />
-            <View style={styles.info}>
-                <Text style={styles.brand}>{item?.brand}</Text>
-                <Text style={styles.title} numberOfLines={1}>
-                    {item.title}
-                </Text>
-
-                <View style={styles.priceRow}>
-                    <Text style={styles.price}>₹{item?.price}</Text>
-                    <Text style={styles.oldPrice}>
-                        ₹{(item?.price + (item?.price * item?.discountPercentage) / 100)?.toFixed(0)}
-                    </Text>
-                </View>
-
-                <Text style={styles.discount}>Save {item?.discountPercentage?.toFixed(0)}%</Text>
-                <Text style={styles.rating}>⭐ {item?.rating?.toFixed(1)}</Text>
-            </View>
-        </TouchableOpacity>
-    );
-};
 
 const ProductsCard = () => {
     const navigation = useNavigation<any>();
@@ -140,8 +114,6 @@ const ProductsCard = () => {
         }));
     };
 
-    // console.log("groupByDate(filtered): ", groupByDate(filtered));
-
 
     return (
         <SafeAreaView style={styles.container}>
@@ -209,18 +181,18 @@ const ProductsCard = () => {
                             if (isGrid) {
                                 // console.log("index: ", index);
                                 // console.log("item: ", item);
-                                
+
                                 // ✅ Two items per row
                                 if (index % 2 === 0) {
                                     const secondItem = section.data[index + 1];
                                     return (
                                         <View style={styles.row}>
                                             <View style={styles.col}>
-                                                <ProductCard item={item} isGrid={true} onPress={() => navigation.navigate("ProductDetails", { id: item?.id })} />
+                                                <ProductsView item={item} isGrid={true} onPress={() => navigation.navigate("ProductDetails", { id: item?.id })} />
                                             </View>
                                             {secondItem ? (
                                                 <View style={styles.col}>
-                                                    <ProductCard item={secondItem} isGrid={true} onPress={() => navigation.navigate("ProductDetails", { id: secondItem?.id })} />
+                                                    <ProductsView item={secondItem} isGrid={true} onPress={() => navigation.navigate("ProductDetails", { id: secondItem?.id })} />
                                                 </View>
                                             ) : (
                                                 <View style={[styles.col, { opacity: 0 }]} /> // empty filler
@@ -234,7 +206,7 @@ const ProductsCard = () => {
                             // ✅ Normal list item
                             return (
                                 <View style={styles.col}>
-                                    <ProductCard item={item} isGrid={false} onPress={() => navigation.navigate("ProductDetails", { id: item?.id })} />
+                                    <ProductsView item={item} isGrid={false} onPress={() => navigation.navigate("ProductDetails", { id: item?.id })} />
                                 </View>
                             );
                         }}
@@ -281,70 +253,6 @@ const styles = StyleSheet.create({
         color: "#555",
         marginVertical: 6,
         marginLeft: 12,
-    },
-    card: {
-        backgroundColor: "#fff",
-        margin: 6,
-        borderRadius: 8,
-        overflow: "hidden",
-        elevation: 2,
-        flex: 1,
-    },
-    /* cardGrid: {
-        maxWidth: "48%",
-    }, */
-    cardList: {
-        flexDirection: "row",
-        alignItems: "center",
-    },
-    imageGrid: {
-        width: "100%",
-        height: 160,
-        resizeMode: "cover",
-    },
-    imageList: {
-        width: 100,
-        height: 100,
-        resizeMode: "cover",
-    },
-    info: {
-        padding: 8,
-        flex: 1,
-    },
-    brand: {
-        fontWeight: "bold",
-        fontSize: 14,
-        color: "#222",
-    },
-    title: {
-        fontSize: 12,
-        color: "#555",
-        marginVertical: 2,
-    },
-    priceRow: {
-        flexDirection: "row",
-        alignItems: "center",
-    },
-    price: {
-        fontSize: 14,
-        fontWeight: "600",
-        color: "#000",
-    },
-    oldPrice: {
-        fontSize: 12,
-        color: "#888",
-        marginLeft: 6,
-        textDecorationLine: "line-through",
-    },
-    discount: {
-        fontSize: 12,
-        color: "green",
-        marginTop: 2,
-    },
-    rating: {
-        fontSize: 12,
-        color: "#f39c12",
-        marginTop: 2,
     },
     gridViewSelection: {
         flexDirection: 'row',

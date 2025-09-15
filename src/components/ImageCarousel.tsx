@@ -49,11 +49,14 @@ const styles = StyleSheet.create({
     container: {
         position: "relative",
         alignItems: "center",
+        // borderWidth: 1
     },
     image: {
-        width: width,
+        width: width / 1.2,
         height: 250,
         resizeMode: "cover",
+        // borderWidth: 1,
+        // borderColor: "red"
     },
     dotContainer: {
         flexDirection: "row",
